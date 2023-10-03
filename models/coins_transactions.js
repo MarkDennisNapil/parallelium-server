@@ -11,7 +11,7 @@ const CoinsTransaction = new mongoose.Schema({
     },
     amount: {
       type: Number,
-      default: 0
+      default: 50
     },
     description: {
       type: String
