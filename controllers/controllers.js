@@ -270,7 +270,7 @@ exports.followUser = (req, res) => {
     });
 }
 exports.Search = (req, res) => {
-  let keyword = req.body.words;
+  let keyword = req.params.words;
   Promise.all([
     userModel.find({ $text: { $search: keyword } }),
     postModel.find({ $text: { $search: keyword } }),
