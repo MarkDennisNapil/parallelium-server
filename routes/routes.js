@@ -31,7 +31,7 @@ router.put('/:name/:id/view/:userid', controller.AddViewerOnPost);
 //--follow user
 router.put('/user/:id/follow/:follower', controller.followUser);
 //--search anything
-router.get('/search/keyword/:words', controller.Search);
+router.get('/search', controller.Search);
 //login endpoint
 router.post('/auth', controller.Login);
 //signup endpoint
