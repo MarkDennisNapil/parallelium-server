@@ -272,8 +272,8 @@ exports.followUser = (req, res) => {
 exports.Search = (req, res) => {
   let keyword = req.params.words;
   Promise.all([
-    userModel.find({ text: { $search: `${keyword}` } }),
-    postModel.find({ text: { $search: `${keyword}` } }),
+    userModel.find({ $text: { $search: `${keyword}` } }),
+    postModel.find({ $text: { $search: `${keyword}` } }),
     textModel.find({ $text: { $search: `${keyword}` } }),
     videoModel.find({ $text: { $search: `${keyword}` } }),
     vibeModel.find({ $text: { $search: `${keyword}` } })
