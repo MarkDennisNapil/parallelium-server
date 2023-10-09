@@ -320,7 +320,7 @@ exports.Search = (req, res) => {
     }
   }
 ])
-  .then(response => res.json(data: response))
+  .then(response => res.json({data: response}))
   .catch(error => console.log(error))
 }
 //user 
