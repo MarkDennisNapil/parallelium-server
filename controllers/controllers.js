@@ -272,11 +272,51 @@ exports.followUser = (req, res) => {
 exports.Search1 = (req, res) => {
   let keyword = req.params.words;
   Promise.all([
-    userModel.find({ $text: { $search: keyword } }),
-    postModel.find({ $text: { $search: keyword } }),
-    textModel.find({ $text: { $search: keyword } }),
-    videoModel.find({ $text: { $search: keyword } }),
-    vibeModel.find({ $text: { $search: keyword } })
+    userModel.aggregate([
+    {
+      $match: {
+        $text: {
+          $search: `${word}`
+        }
+      }
+    }, {$limit: 100}
+  ]),
+    postModel.aggregate([
+    {
+      $match: {
+        $text: {
+          $search: `${word}`
+        }
+      }
+    }, {$limit: 100}
+  ]),
+    textModel.aggregate([
+    {
+      $match: {
+        $text: {
+          $search: `${word}`
+        }
+      }
+    }, {$limit: 100}
+  ]),
+    videoModel.aggregate([
+    {
+      $match: {
+        $text: {
+          $search: `${word}`
+        }
+      }
+    }, {$limit: 100}
+  ]),
+    vibeModel.aggregate([
+    {
+      $match: {
+        $text: {
+          $search: `${word}`
+        }
+      }
+    }, {$limit: 100}
+  ])
   ]).then(data => {
     res.json({ user: data[0], post: data[1], text: data[2], video: data[3], music: data[4] });
   })
