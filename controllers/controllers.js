@@ -321,7 +321,10 @@ exports.Search = (req, res) => {
   }
 )
   .then(response => res.json({data: response}))
-  .catch(error => console.log(error))
+  .catch(error => {
+    res.json({message: error.message, error: error});
+    console.log(error);
+  })
 }
 //user 
 exports.Login = (req, res) => {
