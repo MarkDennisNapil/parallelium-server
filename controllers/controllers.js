@@ -272,11 +272,11 @@ exports.followUser = (req, res) => {
 exports.Search = (req, res) => {
   let keyword = req.body.keyword;
    Promise.all([
-    userModel.aggregate([{$search: { index: "default", text: { query: keyword, path: { wildcard: "*" }}}}]),
-    postModel.aggregate([{$search: { index: "default", text: { query: keyword, path: { wildcard: "*" }}}}]),
-    textModel.aggregate([{$search: { index: "default", text: { query: keyword, path: { wildcard: "*" }}}}]),
-    videoModel.aggregate([{$search: { index: "default", text: { query: keyword, path: { wildcard: "*" }}}}]),
-    vibeModel.aggregate([{$search: { index: "default", text: { query: keyword, path: { wildcard: "*" }}}}])
+    userModel.aggregate([{$search: { index: "default", text: { query: `${keyword}`, path: { wildcard: "*" }}}}]),
+    postModel.aggregate([{$search: { index: "default", text: { query: `${keyword}`, path: { wildcard: "*" }}}}]),
+    textModel.aggregate([{$search: { index: "default", text: { query: `${keyword}`, path: { wildcard: "*" }}}}]),
+    videoModel.aggregate([{$search: { index: "default", text: { query: `${keyword}`, path: { wildcard: "*" }}}}]),
+    vibeModel.aggregate([{$search: { index: "default", text: { query: `${keyword}`, path: { wildcard: "*" }}}}])
   ]).then(data => {
     res.json({ user: data[0], post: data[1], text: data[2], video: data[3], music: data[4], keyword: keyword });
   })
