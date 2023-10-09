@@ -307,7 +307,7 @@ exports.Stats = (req, res) => {
 }
 exports.Search = (req, res) => {
   let keyword = req.params.keyword;
-  userModel.find([
+  userModel.find(
   {
     $search: {
       index: "default",
@@ -319,7 +319,7 @@ exports.Search = (req, res) => {
       }
     }
   }
-])
+)
   .then(response => res.json({data: response}))
   .catch(error => console.log(error))
 }
