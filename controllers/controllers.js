@@ -276,7 +276,7 @@ exports.Search = (req, res) => {
     {
       $match: {
         $text: {
-          $search: `${word}`
+          $search: `${keyword}`
         }
       }
     }, {$limit: 100}
@@ -285,7 +285,7 @@ exports.Search = (req, res) => {
     {
       $match: {
         $text: {
-          $search: `${word}`
+          $search: `${keyword}`
         }
       }
     }, {$limit: 100}
@@ -294,7 +294,7 @@ exports.Search = (req, res) => {
     {
       $match: {
         $text: {
-          $search: `${word}`
+          $search: `${keyword}`
         }
       }
     }, {$limit: 100}
@@ -303,7 +303,7 @@ exports.Search = (req, res) => {
     {
       $match: {
         $text: {
-          $search: `${word}`
+          $search: `${keyword}`
         }
       }
     }, {$limit: 100}
@@ -312,7 +312,7 @@ exports.Search = (req, res) => {
     {
       $match: {
         $text: {
-          $search: `${word}`
+          $search: `${keyword}`
         }
       }
     }, {$limit: 100}
