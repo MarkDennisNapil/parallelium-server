@@ -269,8 +269,8 @@ exports.followUser = (req, res) => {
       console.log(err);
     });
 }
-exports.Search1 = (req, res) => {
-  let keyword = req.params.words;
+exports.Search = (req, res) => {
+  let keyword = req.body.words;
   Promise.all([
     userModel.aggregate([
     {
@@ -343,27 +343,6 @@ exports.Stats = (req, res) => {
   })
   .catch(error => {
     console.log(error.message);
-  })
-}
-exports.Search = (req, res) => {
-  let keyword = req.params.keyword;
-  userModel.find(
-  {
-    $search: {
-      index: "default",
-      text: {
-        query: keyword,
-        path: {
-          wildcard: "*"
-        }
-      }
-    }
-  }
-)
-  .then(response => res.json({data: response}))
-  .catch(error => {
-    res.json({message: error.message, error: error});
-    console.log(error);
   })
 }
 //user 
