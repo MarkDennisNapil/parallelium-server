@@ -272,71 +272,11 @@ exports.followUser = (req, res) => {
 exports.Search = (req, res) => {
   let keyword = req.params.words;
   Promise.all([
-    userModel.find([
-  {
-    $search: {
-      index: "default",
-      text: {
-        query: keyword,
-        path: {
-          wildcard: "*"
-        }
-      }
-    }
-  }
-]),
-    postModel.find([
-  {
-    $search: {
-      index: "default",
-      text: {
-        query: keyword,
-        path: {
-          wildcard: "*"
-        }
-      }
-    }
-  }
-]),
-    textModel.find([
-  {
-    $search: {
-      index: "default",
-      text: {
-        query: keyword,
-        path: {
-          wildcard: "*"
-        }
-      }
-    }
-  }
-]),
-    videoModel.find([
-  {
-    $search: {
-      index: "default",
-      text: {
-        query: keyword,
-        path: {
-          wildcard: "*"
-        }
-      }
-    }
-  }
-]),
-    vibeModel.find([
-  {
-    $search: {
-      index: "default",
-      text: {
-        query: keyword,
-        path: {
-          wildcard: "*"
-        }
-      }
-    }
-  }
-])
+    userModel.find({ $text: { $search: keyword } }),
+    postModel.find({ $text: { $search: keyword } }),
+    textModel.find({ $text: { $search: keyword } }),
+    videoModel.find({ $text: { $search: keyword } }),
+    vibeModel.find({ $text: { $search: keyword } })
   ]).then(data => {
     res.json({ user: data[0], post: data[1], text: data[2], video: data[3], music: data[4] });
   })
