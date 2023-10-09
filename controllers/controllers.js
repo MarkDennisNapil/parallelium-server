@@ -270,7 +270,7 @@ exports.followUser = (req, res) => {
     });
 }
 exports.Search = (req, res) => {
-  let keyword = req.body.words;
+  let keyword = req.body.keyword;
   Promise.all([
     userModel.aggregate([{$match: {$text: {$search: `${keyword}`}}}, {$limit: 100}]),
     postModel.aggregate([{$match: {$text: {$search: `${keyword}`}}}, {$limit: 100}]),
