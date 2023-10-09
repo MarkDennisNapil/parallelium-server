@@ -92,7 +92,7 @@ exports.findItem = (req, res) => {
     console.log("0 result");
   }
   if (rp_name !== null && rp_id !== null) {
-    collname.findById(rp_id)
+    collname.findById({_id: req.params.id})
       .then((result) => {
         res.json({ message: "Success", data: result });
       })
