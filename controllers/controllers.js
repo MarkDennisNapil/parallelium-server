@@ -269,7 +269,7 @@ exports.followUser = (req, res) => {
       console.log(err);
     });
 }
-exports.Search = (req, res) => {
+exports.Search1 = (req, res) => {
   let keyword = req.params.words;
   Promise.all([
     userModel.find({ $text: { $search: keyword } }),
@@ -304,6 +304,24 @@ exports.Stats = (req, res) => {
   .catch(error => {
     console.log(error.message);
   })
+}
+exports.Search = (req, res) => {
+  let keyword = req.params.keyword;
+  userModel.find([
+  {
+    $search: {
+      index: "default",
+      text: {
+        query: keyword,
+        path: {
+          wildcard: "*"
+        }
+      }
+    }
+  }
+])
+  .then(response => res.json(data: response))
+  .catch(error => console.log(error))
 }
 //user 
 exports.Login = (req, res) => {
