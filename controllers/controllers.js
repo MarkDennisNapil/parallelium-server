@@ -91,7 +91,6 @@ exports.findItem = (req, res) => {
   else {
     console.log("0 result");
   }
-  if (rp_name !== null && rp_id !== null) {
     collname.findById({_id: req.params.id})
       .then((result) => {
         res.json({ message: "Success", data: result });
@@ -100,11 +99,6 @@ exports.findItem = (req, res) => {
         res.status(500).send(err.stack);
         console.log(err.message);
       });
-  }
-  else {
-    res.json({ message: "Error! No item found" });
-    console.log("No item found!");
-  }
 }
 exports.deleteItem = (req, res) => {
   let rp_name = req.params.name,
