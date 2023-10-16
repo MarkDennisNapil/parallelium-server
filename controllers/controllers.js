@@ -540,8 +540,9 @@ exports.addPost = (req, res) => {
         if (err) {
           console.log(err);
           return success = 0;
-        }
+        } else {
         return success = 1;
+        }
       });
 
       files[i] = req.files.file[i];
