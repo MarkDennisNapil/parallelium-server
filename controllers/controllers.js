@@ -320,7 +320,7 @@ exports.Login = (req, res) => {
             token: token,
             maxAge: maxAge
           });
-          res.json({ message: "Login successful!", id: user._id, token });
+          res.json({ message: "Login successful!", id: user._id, token, verified: user.verified });
         } else {
           res.json({ message: `Password does not match! Verified = ${user.verified}`, verified: user.verified });
         }
