@@ -36,6 +36,7 @@ router.get('/finder/text/:keyword', controller.Search);
 router.post('/auth', controller.Login);
 //signup endpoint
 router.post('/signup', controller.userSignup);
+router.put('/verify/accountID/:id', controller.verifyAccount);
 //edit user
 router.put('/users/:id', controller.editUser);
 //add coins

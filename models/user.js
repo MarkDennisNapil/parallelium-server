@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: [true, "Email already used!"],
   },
+  verified: {
+    type: Boolean,
+    default: false
+  },
   phone: {
     type: Number
   },

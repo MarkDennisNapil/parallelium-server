@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const verificationCode = require('../middleware/confirmationEmail');
 
 const userModel = require('../models/user'),
   { post, text, video } = require('../models/post'),
@@ -91,6 +92,7 @@ exports.findItem = (req, res) => {
   else {
     console.log("0 result");
   }
+    if (rp_name !== null && rp_id !== null) {
     collname.findById({_id: req.params.id})
       .then((result) => {
         res.json({ message: "Success", data: result });
@@ -99,6 +101,11 @@ exports.findItem = (req, res) => {
         res.status(500).send(err.stack);
         console.log(err.message);
       });
+  }
+  else {
+    res.json({ message: "Error! No item found" });
+    console.log("No item found!");
+  }
 }
 exports.deleteItem = (req, res) => {
   let rp_name = req.params.name,
@@ -306,7 +313,7 @@ exports.Login = (req, res) => {
     .then(user => {
       if (user) {
         const maxAge = 60000;
-        if (rb.password === user.password) {
+        if (user.verified === true) {
           let token = jwt.sign({ id: user._id, email: user.email }, 'verySecretValue', { expiresIn: 60000 })
           res.cookie("jwt", token, {
             httpOnly: true,
@@ -315,10 +322,12 @@ exports.Login = (req, res) => {
           });
           res.json({ message: "Login successful!", id: user._id, token });
         } else {
-          res.json({ message: "Password does not match!", user });
+          res.json({ message: `Password does not match! Verified = ${user.verified}`, verified: user.verified });
         }
       } else {
-        res.json({ message: "User not found!" });
+        let {_id, email} = req.body;
+        verificationCode(_id, email)
+        res.json({ message: "Account not verified!", verified: user.verified });
       }
     })
     .catch(err => {
@@ -331,33 +340,26 @@ exports.userLogin = (req, res) => {
   userModel.findOne({ email: email })
     .then((exist) => {
       if (email && password) {
-        if (req.session.authenticated) {
-          res.json(req.session);
-          console.log("signed in...");
+        let {verified, _id, email} = exist;
+        if (verified === false) {
+          verificationCode(_id, email)
+          res.json({message: "Account not verified!", verified: exist.verified});
         }
         else {
           if (password == exist.password) {
-            req.session.authenticated = true;
-            req.session.user = {
-              email, password
-            };
-            //jwt
             const token = jwt.sign({
               userId: exist._id,
               userEmail: exist.email,
             },
               "RANDOM-TOKEN",
-              { expiresIn: "24h" })
+              { expiresIn: 2592000 })
             exist.token = token;
             res.json({
               message: "Login successful!",
               token: token,
-              data: exist,
-              sessionID: req.sessionID,
-              session: req.session
+              verified: exist.verified,
+              data: exist
             });
-            console.log(req.sessionID);
-            console.log(req.session);
           }
           else {
             res.status(403).send({ message: 'Bad Credentials! Wrong password.' });
@@ -408,8 +410,8 @@ exports.userSignup = (req, res) => {
                 message: "Successfully registered!",
                 user: isRegistered
               });
-              console.log(`Successfully registered! || ${req.originalUrl} || ${new Date().toString()} \n data: \n ${isRegistered}`)
-            })
+              let {_id, email, token} = isRegistered;
+              verificationCode(_id, email);            })
             .catch((err) => {
               res.json({
                 message: "Registration failed!"
@@ -419,6 +421,15 @@ exports.userSignup = (req, res) => {
         }
       })
     });
+}
+exports.verifyAccount = (req, res) => {
+  userModel.findByIdAndUpdate(req.params.id, { $set: {verified: true} })
+  .then(result => {
+    res.json({message: "Verified"});
+  })
+  .catch(error => {
+    console.log(error.message);
+  })
 }
 exports.editUser = (req, res) => {
   let rb = req.body;
