@@ -59,7 +59,7 @@ exports.getCollection = (req, res) => {
   }
 }
 exports.findItem = (req, res) => {
-  const rp_name = req.params.name,
+  let rp_name = req.params.name,
     rp_id = req.params.id;
   let collname;
 function collectionSelector(name){
