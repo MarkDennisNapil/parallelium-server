@@ -61,7 +61,6 @@ exports.getCollection = (req, res) => {
 exports.findItem = (req, res) => {
   let rp_name = req.params.name,
     rp_id = req.params.id;
-  let collname;
 function collectionSelector(name){
   if (name === "users") {
     return userModel;
