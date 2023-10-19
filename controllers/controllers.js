@@ -62,38 +62,41 @@ exports.findItem = (req, res) => {
   const rp_name = req.params.name,
     rp_id = req.params.id;
   let collname;
-  if (rp_name === "users") {
-    collname = userModel;
+function collectionSelector(name){
+  if (name === "users") {
+    return userModel;
   }
-  else if (req.params.name === "post") {
-    collname = postModel;
+  else if (name === "post") {
+    return postModel;
   }
-  else if (rp_name === "text") {
-    collname = textModel;
+  else if (name === "text") {
+    return textModel;
   }
-  else if (rp_name === "video") {
-    collname = videoModel;
+  else if (name === "video") {
+    return videoModel;
   }
-  else if (rp_name === "vibe") {
-    collname = vibeModel;
+  else if (name === "vibe") {
+    return vibeModel;
   }
-  else if (rp_name === "album") {
-    collname = albumModel;
+  else if (name === "album") {
+    return albumModel;
   }
-  else if (rp_name === "message") {
-    collname = messageModel;
+  else if (name === "message") {
+    return messageModel;
   }
-  else if (rp_name === "commentonpost") {
-    collname = postCommentModel;
+  else if (name === "commentonpost") {
+    return postCommentModel;
   }
-  else if (rp_name === "commentontext") {
-    collname = textCommentModel;
+  else if (name === "commentontext") {
+    return textCommentModel;
   }
   else {
-    console.log("0 result");
+    return userModel;
   }
+}
+const collectionSelected = collectionSelector(rp_name);
     if (rp_name !== null && rp_id !== null) {
-    collname.findById({_id: req.params.id})
+    collectionSelected.findById({_id: req.params.id})
       .then((result) => {
         res.json({ message: "Success", data: result });
       })
@@ -103,7 +106,7 @@ exports.findItem = (req, res) => {
       });
   }
   else {
-    res.json({ message: "Error! No item found" });
+    res.json({ message: "Error! null collection name and id" });
     console.log("No item found!");
   }
 }
