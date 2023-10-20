@@ -50,10 +50,8 @@ exports.getCollection = (req, res) => {
     collname.find()
       .then((result) => {
         res.json({ message: "Success", data: result });
-        console.log(result);
       })
       .catch((err) => {
-        res.status(500).send(err.stack);
         console.log(err);
       });
   }
