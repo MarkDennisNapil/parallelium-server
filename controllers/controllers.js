@@ -12,7 +12,7 @@ const postModel = post, textModel = text, videoModel = video,
   vibeModel = music, albumModel = album,
   postCommentModel = postComment, textCommentModel = textComment;
 
-const uploadpath = __dirname + "/../public/files/";
+const uploadpath = "../uploads" + __dirname + "/../public/files/";
 //get all record base on collection name endpoints
 exports.getCollection = (req, res) => {
   let rp_name = req.params.name;

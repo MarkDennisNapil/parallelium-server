@@ -5,6 +5,7 @@ const bodyparser = require('body-parser');
 const fileupload = require('express-fileupload');
 const cors = require('cors');
 const session = require('express-session');
+const fs = require('fs');
 
 const apiRoute = require('./routes/routes');
 require('dotenv').config()
@@ -22,10 +23,21 @@ db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function() {
   console.log("Connected successfully!");
 });
+const dir = '../uploads';
+try {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+        console.log("Directory is created.");
+    } else {
+        console.log("Directory already exists.");
+    }
+} catch (err) {
+    console.log(err);
+}
 
 app.use(cors());
 app.use(fileupload());
-app.use('/resources', express.static(__dirname + '/public/files'));
+app.use('/resources', express.static('../uploads' + __dirname + '/public/files'));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 

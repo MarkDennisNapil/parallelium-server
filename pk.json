@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "parallelium-files",
+  "private_key_id": "ce17b1860e8396e3175990e9a071660489c7a167",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCndjUn+74esA6k\nCIrLGgKGVRZQE3roXXyR5oQQemdMw2TAf8kmMmLaPFdKQB8uIQ1he8t00BccsAyj\nDDWssH4UTVwKMJYriNr3GVdqYmiKRm7s1Jn3dN0HnUoAreUBT1wJP5uVyWg7dOZy\niSuQgscs42zhALFU14UL4qpnmtQS/Q1YWyimn2b2pG0nyYU7wVeNjtCuHk7wkL7Z\nn7Iha4NQodT0GLX/ABSayp7p+IV7wILmINJEIMvK4eJAS4H8t7Ietj1k3omyr+Fz\nZ+x0svJyCLa0wGnP/ipw9Ml0Cza+lj8uTaR56uN0AmocpXUs8p1ppD/pWJLF2ogB\noEEiCybbAgMBAAECggEAAbMrP95ASbhDhiw650aFpP12ruXSW8fLvpbdNelE2z68\nE6JClXIHwldWDLhgnhzUSoQYoqEH7lit7Qmh+LokgGvLGPvrM+H0A3PX+XQapFDi\nAjojw2Ge2vR7ENbFyPR8MBAv83RH+GyV9PNqBQCZk5kiR7g6wE0gTArrF+FuxSm6\nhAlXflInw3vt+eyUlxZC0Er5zhxRF3zdU8mIV7VTzCGyTWKxZ/GqIjFNfLXrPp2U\nxpfclCeDV4J/9MrdBYxvCtkhe0g56MapUtTDITlGaHh1PvmjZnPMtQaIlv1zNqv1\nz9V/9B+pANagpbv/H7G4168z1lcZ8WJXWzCMfaRX5QKBgQDpd+pyziRYrPFgh0qq\nSqlKykvewya3P7PpFXrEeSOK2KKF6V69Kliy9YJKkkx/kv1TPhvkaSxXtzMszx46\nhAjhVbogF9Ab8GG8nFvEAMB1eIsSqT0VmkHxHmd35fFOqIl1sqR2shB/zrsWNa1s\nsHoJnIml/FE7LCUF/3zxf2htPwKBgQC3n4b2M60QLoiAGDncLC7CYQb18teAAGBd\n/2miJ7dIbpmQndEDrL34nQwySTY9gGnX2M4QgYGvuBBRta1yaX7DZVTB9IjrHRzr\ndWrKWjvxENjXyTW+NJaf2Byo47KYQ/HmCw7PLUJsWfbZyUcwxXd5dp2zs44wvWH4\nv8tGKEuzZQKBgHGKX/p1RjfZ44mOQkGPDcXRnBQ51BpKYLR6PbpPL3nW4TM+y1Qz\nw+9EdpjNjWZ9lbVl/yqV+3qtHbYtBAZxL+BmUJ5K9mqf/Og9ImOv+eknNntc0tgu\nrOMWZjtpGHGohTE4L8OJ1XxSjam/cRfqu27xMgAHNXoRfe/s0FaiH6cBAoGBAI+D\n2aIX5Y2eMQWc6awRxEIcP6p/MLtUj/0noVIhpHiyKMgE8NXkb14esOeknQYYlaEk\nTHpOHiROwkJ6sqOXnIHvcv1cuJ66VF4bmWmqeOsC9dhB5QVSaN9ps4y02mNzx167\nCcoXX7D755l0XXXbAHQopz1KeznQ6v/WN3QQDoqZAoGAJVGIwRlzwU2glPehv32T\ngZmCf8U/L5eaWxQosfuVDTuH2JaezTkENMxr1hV5o8TzOZh/aNvy9U/BUwuqXtu1\nNCjdiwWcUCOtwjk/KoK8/h1h8EFZ9bWeKFY+BK6/wOJHeyaUZbbIero4lA7+K8C3\ndX1B+vop4fpfg5RuWZbBe14=\n-----END PRIVATE KEY-----\n",
+  "client_email": "parallelium-server@parallelium-files.iam.gserviceaccount.com",
+  "client_id": "116723259556543345015",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/parallelium-server%40parallelium-files.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
