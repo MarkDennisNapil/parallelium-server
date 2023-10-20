@@ -26,7 +26,7 @@ exports.uploadFiles = (req, res) => {
   client.connect({
     host: 'files.000webhost.com',
     user: 'parallelium-server',
-    password: 'markdennisnapil3182000',
+    password: 'Markdennisnapil@3182000',
   });
 
   client.on('ready', () => {
