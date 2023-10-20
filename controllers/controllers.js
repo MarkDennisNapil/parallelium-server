@@ -14,6 +14,10 @@ const postModel = post, textModel = text, videoModel = video,
 
 const uploadpath = "https://files.000webhost.com/";
 //get all record base on collection name endpoints
+exports.Home = (req, res) => {
+  let message = "Welcome! Server is running.";
+  res.send(message);
+}
 exports.getCollection = (req, res) => {
   let rp_name = req.params.name;
   let collname;

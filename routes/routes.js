@@ -19,6 +19,7 @@ const upload = multer({ dest: "../public/files/" });
 
 //--user route endpoints--
 //get all data base on collection name
+router.get('/', controller.Home);
 router.get('/collection/:name', controller.getCollection);
 //find single item base on the collection name parameter
 router.get('/:name/:id', controller.findItem);
