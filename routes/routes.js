@@ -104,5 +104,7 @@ router.put('/vibe/:id', controller.updateMusic);
 router.post('/vibe/album', controller.createAlbum);
 //update album
 router.put('/vibe/album/:id', controller.updateAlbum);
+//test 000webhost file upload
+router.post('/file/upload', controller.uploadFiles);
 
 module.exports = router;

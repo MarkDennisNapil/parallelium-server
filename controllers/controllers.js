@@ -13,6 +13,40 @@ const postModel = post, textModel = text, videoModel = video,
   postCommentModel = postComment, textCommentModel = textComment;
 
 const uploadpath = "https://files.000webhost.com/";
+
+exports.uploadFiles = (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  const uploadedFile = req.files.file;
+  const client = new FTPClient();
+
+  client.connect({
+    host: 'files.000webhost.com',
+    user: 'parallelium-server',
+    password: 'markdennisnapil3182000',
+  });
+
+  client.on('ready', () => {
+    client.put(uploadedFile.data, uploadedFile.name, (err) => {
+      if (err) {
+        console.error('Error uploading file:', err);
+        res.status(500).send('Error uploading file.');
+      } else {
+        console.log('File uploaded to 000webhost via FTP.');
+        res.status(200).send('File uploaded to 000webhost successfully.');
+      }
+
+      client.end();
+    });
+  });
+
+  client.on('error', (err) => {
+    console.error('FTP connection error:', err);
+    res.status(500).send('FTP connection error.');
+  });
+}
 //get all record base on collection name endpoints
 exports.Home = (req, res) => {
   let message = "Welcome! Server is running.";
