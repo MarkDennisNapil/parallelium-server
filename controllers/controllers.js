@@ -20,7 +20,7 @@ exports.uploadFiles = (req, res) => {
     return res.status(400).send('No files were uploaded.');
   }
 
-  const files = req.files.files; // Assuming your input field is named 'files'
+  const files = req.files.file; // Assuming your input field is named 'files'
   const client = new FTPClient();
 
   client.connect({
