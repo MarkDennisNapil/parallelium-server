@@ -20,7 +20,6 @@ exports.uploadFiles = (req, res) => {
     return res.status(400).send('No files were uploaded.');
   }
 
-  const files = req.files.file; // Assuming your input field is named 'files'
   const client = new FTPClient();
 
   client.connect({
@@ -29,33 +28,54 @@ exports.uploadFiles = (req, res) => {
     password: 'Markdennisnapil@3182000'
   });
     client.on('ready', () => {
-      files.mv('./uploads', (err) => {
-        if (err) {
-          console.error('Error moving files:', err);
-          res.status(500).send('Error moving files.');
-          client.end();
-        } else {
-          const filesToUpload = files.name.split(','); // Assuming files.name contains the file names
-  
-          filesToUpload.forEach((fileName) => {
-            client.put(`./uploads/${fileName}`, fileName, (ftpErr) => {
+      const files = req.files.file; // Assuming your input field is named 'files'
+
+    if (Array.isArray(files)) {
+      // Handle multiple files
+      files.forEach((file) => {
+        const fileName = file.name;
+        file.mv(`${fileName}`, (err) => {
+          if (err) {
+            console.error('Error moving files:', err);
+            res.status(500).send('Error moving files.');
+            client.end();
+          } else {
+            client.put(`${fileName}`, fileName, (ftpErr) => {
               if (ftpErr) {
                 console.error('Error uploading file:', ftpErr);
                 res.status(500).send('Error uploading files.');
               }
             });
-          });
-  
-          res.status(200).send('Files uploaded to 000webhost successfully.');
+          }
+        });
+      });
+    } else {
+      // Handle a single file
+      const file = files;
+      const fileName = file.name;
+      file.mv(`${fileName}`, (err) => {
+        if (err) {
+          console.error('Error moving file:', err);
+          res.status(500).send('Error moving files.');
           client.end();
+        } else {
+          client.put(`${fileName}`, fileName, (ftpErr) => {
+            if (ftpErr) {
+              console.error('Error uploading file:', ftpErr);
+              res.status(500).send('Error uploading files.');
+            }
+          });
         }
       });
-    });
-  
-    client.on('error', (err) => {
-      console.error('FTP connection error:', err);
-      res.status(500).send('FTP connection error.');
-    });
+    }
+
+    res.status(200).send('Files uploaded to 000webhost successfully.');
+  });
+
+  client.on('error', (err) => {
+    console.error('FTP connection error:', err);
+    res.status(500).send('FTP connection error.');
+  });
 }
 //get all record base on collection name endpoints
 exports.Home = (req, res) => {
