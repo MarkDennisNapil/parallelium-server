@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const FTPClient = require('ftp');
 const verificationCode = require('../middleware/confirmationEmail');
 
 const userModel = require('../models/user'),
