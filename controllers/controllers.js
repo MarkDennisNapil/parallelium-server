@@ -20,7 +20,7 @@ exports.uploadFiles = (req, res) => {
     return res.status(400).send('No files were uploaded.');
   }
 
-  const files = req.files.files; // Assuming your input field is named 'files'
+  const uploadedFile = req.files;
   const client = new FTPClient();
 
   client.connect({
@@ -30,28 +30,17 @@ exports.uploadFiles = (req, res) => {
   });
 
   client.on('ready', () => {
-    files.mv('./uploads', (err) => {
+    for (let i = 0; i < req.files.file.length; i++) {
+      client.put(uploadedFile.file[i].data, uploadedFile.file[i].name, (err) => {
       if (err) {
-        console.error('Error moving files:', err);
-        res.status(500).send('Error moving files.');
-        client.end();
-      } else {
-        const filesToUpload = files.name.split(','); // Assuming files.name contains the file names
-
-        filesToUpload.forEach((fileName) => {
-          client.put(`./uploads/${fileName}`, fileName, (ftpErr) => {
-            if (ftpErr) {
-              console.error('Error uploading file:', ftpErr);
-              res.status(500).send('Error uploading files.');
-            }
-          });
-        });
-
-        res.status(200).send('Files uploaded to 000webhost successfully.');
-        client.end();
+        console.error('Error uploading file:', err);
+        res.status(500).send('Error uploading file.');
       }
+      client.end();
     });
+  }
   });
+
   client.on('error', (err) => {
     console.error('FTP connection error:', err);
     res.status(500).send('FTP connection error.');
