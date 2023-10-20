@@ -2,13 +2,13 @@
   "name": "parallelium-server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "engines": {
     "node": "18.x"
   },
   "scripts": {
-    "start": "node app.js",
-    "server": "node app.js",
+    "start": "node index.js",
+    "server": "node index.js",
     "build": "npm install",
     "dev": "nodemon index.js",
     "client": "server ./public/files -l 3000",
