@@ -1,21 +1,9 @@
 const express = require('express'),
-  jwt = require('jsonwebtoken'),
-  multer = require('multer');
+  jwt = require('jsonwebtoken');
 
 const controller = require('../controllers/controllers');
 
 const router = express.Router();
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/files');
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()} ${file.originalname}`);
-  },
-});
-
-const upload = multer({ dest: "../public/files/" });
 
 //--user route endpoints--
 //get all data base on collection name
