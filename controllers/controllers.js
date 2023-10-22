@@ -33,7 +33,7 @@ exports.uploadFiles = (req, res) => {
     if (Array.isArray(files)) {
       // Handle multiple files
       files.forEach((file) => {
-        const fileName = file.name;
+        const fileName = file.md5 + file.name;
         file.mv(`${fileName}`, (err) => {
           if (err) {
             console.error('Error moving files:', err);
@@ -52,7 +52,7 @@ exports.uploadFiles = (req, res) => {
     } else {
       // Handle a single file
       const file = files;
-      const fileName = file.name;
+      const fileName = file.md5 + file.name;
       file.mv(`${fileName}`, (err) => {
         if (err) {
           console.error('Error moving file:', err);
@@ -68,8 +68,7 @@ exports.uploadFiles = (req, res) => {
         }
       });
     }
-
-    res.status(200).send('Files uploaded to 000webhost successfully.');
+    res.json({message: "Uploaded successfully!", files: files})
   });
 
   client.on('error', (err) => {
