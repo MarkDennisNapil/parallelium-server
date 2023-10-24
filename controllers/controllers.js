@@ -512,8 +512,10 @@ exports.editUser = (req, res) => {
       email: rb.email,
       photo: filename
     };
-    let uploadStatus = fileUpload(file);
-      if (uploadStatus === true) {
+    file.mv(`${uploadpath}${filename}`, (err) => {
+      if (err) {
+        res.json({ message: "Upload failed" });
+      } else {
         userModel.findByIdAndUpdate(req.params.id, {
           $set: data
         })
@@ -524,6 +526,7 @@ exports.editUser = (req, res) => {
             console.log(err);
           });
       }
+    })
   }
   else {
     let data = {

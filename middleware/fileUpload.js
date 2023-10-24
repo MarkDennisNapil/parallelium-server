@@ -1,6 +1,6 @@
 const FTPClient = require('ftp');
 
-function fileUpload(fileData){
+function fileUpload(data){
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
       }
@@ -12,7 +12,9 @@ function fileUpload(fileData){
         user: 'parallelium-server',
         password: 'Markdennisnapil@3182000'
       });
-        client.on('ready', () => {    
+        client.on('ready', () => {
+          const files = req.files.file; // Assuming your input field is named 'files'
+    
         if (Array.isArray(files)) {
           // Handle multiple files
           files.forEach((file) => {
@@ -51,7 +53,7 @@ function fileUpload(fileData){
             }
           });
         }
-        return true;
+        res.json({message: "Uploaded successfully!", files: files})
       });
     
       client.on('error', (err) => {
