@@ -34,7 +34,7 @@ exports.uploadFiles = (req, res) => {
       // Handle multiple files
       files.forEach((file) => {
         const fileName = file.md5 + file.name;
-        file.mv(`${fileName}`, (err) => {
+        file.mv(`public_html/${fileName}`, (err) => {
           if (err) {
             console.error('Error moving files:', err);
             res.status(500).send('Error moving files.');
@@ -53,7 +53,7 @@ exports.uploadFiles = (req, res) => {
       // Handle a single file
       const file = files;
       const fileName = file.md5 + file.name;
-      file.mv(`${fileName}`, (err) => {
+      file.mv(`public_html/${fileName}`, (err) => {
         if (err) {
           console.error('Error moving file:', err);
           res.status(500).send('Error moving files.');
