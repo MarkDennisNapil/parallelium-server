@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const FTPClient = require('ftp');
 const verificationCode = require('../middleware/confirmationEmail');
+const fileUpload = require('../middleware/fileUpload');
 
 const userModel = require('../models/user'),
   { post, text, video } = require('../models/post'),
@@ -511,10 +512,8 @@ exports.editUser = (req, res) => {
       email: rb.email,
       photo: filename
     };
-    file.mv(`${uploadpath}${filename}`, (err) => {
-      if (err) {
-        res.json({ message: "Upload failed" });
-      } else {
+    let uploadStatus = fileUpload(file);
+      if (uploadStatus === true) {
         userModel.findByIdAndUpdate(req.params.id, {
           $set: data
         })
@@ -525,7 +524,6 @@ exports.editUser = (req, res) => {
             console.log(err);
           });
       }
-    })
   }
   else {
     let data = {

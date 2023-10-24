@@ -24,7 +24,7 @@ db.once("open", function() {
 
 app.use(cors());
 app.use(fileupload());
-app.use('/resources', express.static('https://parallelium-server.000webhostapp.com/'));
+app.use('/resources', express.static(__dirname + '/public/files'));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 
