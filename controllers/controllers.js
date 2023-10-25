@@ -512,10 +512,17 @@ exports.editUser = (req, res) => {
       email: rb.email,
       photo: filename
     };
-    client.mv(`/public_html/${filename}`, filename, (err) => {
+    client.on('ready', () => {
+    file.mv(`/public_html/${filename}`, filename, (err) => {
       if (err) {
         res.json({ message: "Upload failed" });
       } else {
+        client.put(`/public_html/${filename}`, filename, (ftpErr) => {
+          if (ftpErr) {
+            console.error('Error uploading file:', ftpErr);
+            res.status(500).send('Error uploading files.');
+          }
+        });
         userModel.findByIdAndUpdate(req.params.id, {
           $set: data
         })
@@ -527,6 +534,7 @@ exports.editUser = (req, res) => {
           });
       }
     })
+  })
   }
   else {
     let data = {
