@@ -15,19 +15,19 @@ const postModel = post, textModel = text, videoModel = video,
   postCommentModel = postComment, textCommentModel = textComment;
 
 const uploadpath = "https://files.000webhost.com/";
+const client = new FTPClient();
+
+client.connect({
+  host: 'files.000webhost.com',
+  user: 'parallelium-server',
+  password: 'Markdennisnapil@3182000'
+});
 
 exports.uploadFiles = (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
 
-  const client = new FTPClient();
-
-  client.connect({
-    host: 'files.000webhost.com',
-    user: 'parallelium-server',
-    password: 'Markdennisnapil@3182000'
-  });
     client.on('ready', () => {
       const files = req.files.file; // Assuming your input field is named 'files'
 
@@ -512,7 +512,7 @@ exports.editUser = (req, res) => {
       email: rb.email,
       photo: filename
     };
-    file.mv(`${uploadpath}${filename}`, (err) => {
+    client.put(`public_html/${filename}`, filename, (err) => {
       if (err) {
         res.json({ message: "Upload failed" });
       } else {
