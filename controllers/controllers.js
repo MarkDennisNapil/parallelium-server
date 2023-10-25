@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const FTPClient = require('ftp');
 const verificationCode = require('../middleware/confirmationEmail');
-const fileUpload = require('../middleware/fileUpload');
 
 const userModel = require('../models/user'),
   { post, text, video } = require('../models/post'),
@@ -15,19 +14,19 @@ const postModel = post, textModel = text, videoModel = video,
   postCommentModel = postComment, textCommentModel = textComment;
 
 const uploadpath = "https://files.000webhost.com/";
-const client = new FTPClient();
-
-client.connect({
-  host: 'files.000webhost.com',
-  user: 'parallelium-server',
-  password: 'Markdennisnapil@3182000'
-});
 
 exports.uploadFiles = (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
 
+  const client = new FTPClient();
+
+  client.connect({
+    host: 'files.000webhost.com',
+    user: 'parallelium-server',
+    password: 'Markdennisnapil@3182000'
+  });
     client.on('ready', () => {
       const files = req.files.file; // Assuming your input field is named 'files'
 
@@ -35,7 +34,7 @@ exports.uploadFiles = (req, res) => {
       // Handle multiple files
       files.forEach((file) => {
         const fileName = file.md5 + file.name;
-        file.mv(`public_html/${fileName}`, (err) => {
+        file.mv(`${fileName}`, (err) => {
           if (err) {
             console.error('Error moving files:', err);
             res.status(500).send('Error moving files.');
@@ -54,7 +53,7 @@ exports.uploadFiles = (req, res) => {
       // Handle a single file
       const file = files;
       const fileName = file.md5 + file.name;
-      file.mv(`public_html/${fileName}`, (err) => {
+      file.mv(`${fileName}`, (err) => {
         if (err) {
           console.error('Error moving file:', err);
           res.status(500).send('Error moving files.');
@@ -512,17 +511,10 @@ exports.editUser = (req, res) => {
       email: rb.email,
       photo: filename
     };
-    client.on('ready', () => {
-    file.mv(`/public_html/${filename}`, filename, (err) => {
+    file.mv(`${uploadpath}${filename}`, (err) => {
       if (err) {
         res.json({ message: "Upload failed" });
       } else {
-        client.put(`/public_html/${filename}`, filename, (ftpErr) => {
-          if (ftpErr) {
-            console.error('Error uploading file:', ftpErr);
-            res.status(500).send('Error uploading files.');
-          }
-        });
         userModel.findByIdAndUpdate(req.params.id, {
           $set: data
         })
@@ -534,7 +526,6 @@ exports.editUser = (req, res) => {
           });
       }
     })
-  })
   }
   else {
     let data = {
