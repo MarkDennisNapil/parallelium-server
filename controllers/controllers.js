@@ -13,7 +13,7 @@ const postModel = post, textModel = text, videoModel = video,
   vibeModel = music, albumModel = album,
   postCommentModel = postComment, textCommentModel = textComment;
 
-const uploadpath = "https://files.000webhost.com/";
+const uploadpath = __dirname + "/../public/files/";
 
 exports.uploadFiles = (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
