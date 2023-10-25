@@ -22,6 +22,10 @@ db.once("open", function() {
   console.log("Connected successfully!");
 });
 
+setInterval(() => {
+  console.log("Server is running!");
+}, 3000);
+
 app.use(cors());
 app.use(fileupload());
 app.use('/resources', express.static(__dirname + '/public/files'));
