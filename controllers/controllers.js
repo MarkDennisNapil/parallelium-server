@@ -512,7 +512,7 @@ exports.editUser = (req, res) => {
       email: rb.email,
       photo: filename
     };
-    client.put(`/public_html/${filename}`, filename, (err) => {
+    client.mv(`/public_html/${filename}`, filename, (err) => {
       if (err) {
         res.json({ message: "Upload failed" });
       } else {
